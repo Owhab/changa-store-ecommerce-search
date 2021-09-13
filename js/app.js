@@ -15,11 +15,12 @@ const showProducts = (products) => {
     const ratingCount = product.rating.count;
     
     div.classList.add("product");
+
     div.innerHTML = `<div class="single-product">
       <div>
     <img class="product-image" src=${image}></img>
       </div>
-      <h3>${product.title}</h3>
+      <h3>${product.title.slice(0, 40)}</h3>
       <p>Category: ${product.category}</p>
       <h2>Price: $ ${product.price}</h2>
       <h4> Rating: ${rating} </h4>
@@ -63,7 +64,8 @@ const setInnerText = (id, value) => {
 
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
-  const priceConverted = getInputValue("price");
+  let priceConverted = getInputValue("price");
+  priceConverted = priceConverted.toFixed(2)
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
     setInnerText("total-tax", priceConverted * 0.2);
@@ -89,6 +91,7 @@ const updateTotal = () => {
     getInputValue("total-tax");
   document.getElementById("total").innerText = grandTotal;
   grandTotal = Math.abs(grandTotal);
+  
 
 
 };
