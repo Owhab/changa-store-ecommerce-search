@@ -54,7 +54,8 @@ const updatePrice = (id, value) => {
   const convertPrice = Math.abs(value);
 
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.abs(total);
+  const totalPrice = total.toFixed(2);
+  document.getElementById(id).innerText = Math.abs(totalPrice);
 };
 
 // set innerText function
@@ -65,7 +66,6 @@ const setInnerText = (id, value) => {
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
   let priceConverted = getInputValue("price");
-  const priceConvertedFixed = priceConverted.toFixed(2);
 
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
@@ -99,3 +99,5 @@ const updateTotal = () => {
 
 };
 loadProducts();
+
+// Show Profuct in Modal
