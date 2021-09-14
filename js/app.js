@@ -6,16 +6,16 @@ const loadProducts = () => {
 
 
 // show all product in UI 
-const showProducts = (products) => {
+let showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
     const image = product.image;
     const div = document.createElement("div");
     const rating = product.rating.rate;
     const ratingCount = product.rating.count;
+
     
     div.classList.add("product");
-
     div.innerHTML = `<div class="single-product">
       <div>
     <img class="product-image" src=${image}></img>
@@ -26,7 +26,7 @@ const showProducts = (products) => {
       <h4> Rating: ${rating} </h4>
       <h5> Total Ratings: ${ratingCount} </h5>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+      <button onclick="singleProduct(${product.id})" id="details-btn" class="btn btn-danger">Details</button></div>
       
       `;
     document.getElementById("all-products").appendChild(div);
@@ -101,3 +101,16 @@ const updateTotal = () => {
 loadProducts();
 
 // Show Profuct in Modal
+const singleProduct = productId => {
+  fetch(`https://fakestoreapi.com/products/${productId}`)
+    .then(res=>res.json())
+    .then(json=>showSingleProduct(json))
+}
+const showSingleProduct = product => {
+  document.getElementById('single-product').innerHTML = `
+    <img class="product-image" src="${product.image}"></img>
+    <h2>Title: ${product.title}</h2>
+    <h4>Category: ${product.category}</h4>
+    <h3>Price: $${product.price}</h3>
+  `
+}
